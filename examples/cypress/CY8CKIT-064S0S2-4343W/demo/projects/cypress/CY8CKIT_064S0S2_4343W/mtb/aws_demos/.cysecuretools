@@ -1,0 +1,5 @@
+{
+    "user_settings": {
+        "default_policy": "policy/policy_single_CM0_CM4_swap.json"
+    }
+}

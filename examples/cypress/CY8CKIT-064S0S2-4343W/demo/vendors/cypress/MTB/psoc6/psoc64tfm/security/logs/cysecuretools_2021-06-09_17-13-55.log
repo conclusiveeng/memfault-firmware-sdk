@@ -1,0 +1,19 @@
+2021-06-09 17:13:55,270 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 70: First stage validation success
+2021-06-09 17:13:55,271 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 80: Validating firmware slots overlapping
+2021-06-09 17:13:55,271 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 87: Validating boot_auth id matches kid in JSON key file
+2021-06-09 17:13:55,289 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 87: Validating boot_auth id matches kid in JSON key file
+2021-06-09 17:13:55,289 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 95: Validating there is no different JWKs with the same key ID
+2021-06-09 17:13:55,289 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 103: Validating multi-image IDs
+2021-06-09 17:13:55,289 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 110: Validating multi-image smif_id
+2021-06-09 17:13:55,289 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 124: Validating policy for BOOT sections, encryption and SMIF
+2021-06-09 17:13:55,289 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 414: UPGRADE slot will reside in external flash at address 0x18024400
+2021-06-09 17:13:55,289 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 131: Validating monotonic counter
+2021-06-09 17:13:55,290 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 137: Validating CyBootloader paths
+2021-06-09 17:13:55,290 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 143: Validate whether slots address value is aligned with the SMPU address limits
+2021-06-09 17:13:55,290 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 150: Check aligning to Memory map
+2021-06-09 17:13:55,290 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 176: Validating multi-image smif_sector_size
+2021-06-09 17:13:55,290 : C : DEBUG : cysecuretools.targets.common.policy_validator, line 194: Checking flash regions integrity
+2021-06-09 17:13:55,290 : C : WARN  : There is gap between regions 269926400:270254080 and 270303232:270336000 (49152 bytes)
+2021-06-09 17:13:55,290 : C : WARN  : Policy validation finished with warnings
+2021-06-09 17:13:58,716 : C : INFO  : Created key in /data/Development/memfault/amazon-freertos/vendors/cypress/MTB/psoc6/psoc64tfm/security/keys/TFM_S_KEY.json
+2021-06-09 17:13:58,720 : C : INFO  : Created key in /data/Development/memfault/amazon-freertos/vendors/cypress/MTB/psoc6/psoc64tfm/security/keys/TFM_NS_KEY.json
