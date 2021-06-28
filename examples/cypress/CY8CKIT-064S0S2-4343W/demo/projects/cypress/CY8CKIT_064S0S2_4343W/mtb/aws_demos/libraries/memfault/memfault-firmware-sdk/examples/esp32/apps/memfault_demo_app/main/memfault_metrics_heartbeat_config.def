@@ -1,3 +1,0 @@
-// File for holding custom error traces:
-//   https://mflt.io/embedded-metrics
-MEMFAULT_METRICS_KEY_DEFINE(PosterTaskNumSchedules, kMemfaultMetricType_Unsigned)
