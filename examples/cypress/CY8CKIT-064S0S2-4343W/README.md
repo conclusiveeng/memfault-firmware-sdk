@@ -39,6 +39,44 @@ To setup Lambda, select `Create a new lambda function` -> `Author from scratch`.
 
 Once that's out of the way, you'll find the demo function at `aws/forwardChunk.py` which you have to paste into the editor. Make sure to replace `<INSERT KEY HERE>` with your Memfault Project Key, which you can find in your [Memfault dashboard](https://app.memfault.com), before using it.
 
+## Setting up the Memfault port
+
+Add contents of the snippet below to `demo/projects/cypress/CY8CKIT_064S0S2_4343W/mtb/aws_demos/Makefile`:
+```
+MEMFAULT_PORT_ROOT := <PORT ROOT>
+MEMFAULT_SDK_ROOT := <MEMFAULT SDK ROOT>
+
+MEMFAULT_COMPONENTS := core util panics metrics
+include $(MEMFAULT_SDK_ROOT)/makefiles/MemfaultWorker.mk
+```
+
+Where: 
+- `<PORT ROOT>` should be replaced with the path for `ports/cypress/CY8CKIT-064S0S2-4343W`, which is the directory containing the board-specific port files in the `memfault-firmware-sdk` root directory.
+- `<MEMFAULT SDK ROOT>` should be replaced with the path to `memfault-firmware-sdk` root directory.
+
+Update `SOURCES` and `INCLUDES` variables in `demo/projects/cypress/CY8CKIT_064S0S2_4343W/mtb/aws_demos/Makefile` with:
+```
+SOURCES = \
+	$(MEMFAULT_COMPONENTS_SRCS) \
+	$(MEMFAULT_PORT_ROOT)/memfault_platform_storage.c \
+	$(MEMFAULT_PORT_ROOT)/memfault_platform_port.c \
+	$(MEMFAULT_PORT_ROOT)/memfault_test.c \
+	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_metrics_freertos.c \
+	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_core_freertos.c \
+	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_freertos_ram_regions.c \
+	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_panics_freertos.c
+
+INCLUDES = \
+	$(CY_AFR_ROOT)/vendors/cypress/MTB/libraries/wifi-host-driver/WiFi_Host_Driver/resources/nvram/TARGET_CY8CKIT_064B0S2_4343W \
+	$(MEMFAULT_COMPONENTS_INC_FOLDERS) \
+	$(MEMFAULT_SDK_ROOT)/ports/include \
+	$(MEMFAULT_PORT_ROOT)
+```
+
+Port stores coredumps, which include stack, data & bss sections, in flash memory between `__MfltCoredumpsStart` and `__MfltCoredumpsEnd` symbols. Demo implementation provides a 512-byte aligned 128kB region at the end of CM4 flash memory region, just behind the CM4 application signature.
+
+To uniquely identify your firmware type, version & device in your Memfault dashboard, please also make sure to edit `memfault_platform_port.c` and fill all the related fields in `memfault_platform_get_device_info`.
+
 ## Building, flashing & debugging
 
 Build the application using `Build aws_demos Application`, or do it directly from shell in the project directory by using `make build`. 
@@ -47,18 +85,11 @@ Analogously to flash the device either use `aws_demos Program (KitProg3)` from M
 
 You can use the gdbserver/client integrated into ModusToolbox to debug the application by using `aws_demos Debug (KitProg3)` or `make debug` from shell.
 
-## Port & application details
+## Application details
 
-Code for the platform port is available at `demo/projects/cypress/CY8CKIT_064S0S2_4343W/mtb/aws_demos/libraries/memfault`. Related files:
-- `memfault_platform_port.c` - Device info, reboot, memory range, reboot reason, logging & memfault/freertos boot setup.
-- `memfault_platform_storage.c` - Implements IO operations on coredump region in flash memory & device memory regions to dump. 
-- `memfault_test.c` - Functions for testing Memfault functionality - on demand heartbeat, trace and fault generation.
+Main function is in `demo/vendors/cypress/boards/CY8CKIT_064S0S2_4343W/aws_demos/application_code/main.c`. MQTT communication for the application is implemented in `demo/demos/coreMQTT/mqtt_demo_memfault.c`. 
 
-Coredumps are stored in a 512-byte aligned 128kB region at the end of CM4 flash memory region, just behind the CM4 application signature and include stack, data & bss sections.
-
-To uniquely identify your firmware type, version & device in your Memfault dashboard, please make sure to edit `memfault_platform_port.c` and fill all the fields in `memfault_platform_get_device_info`.
-
-Main function is in `examples/cypress/CY8CKIT-064S0S2-4343W/demo/vendors/cypress/boards/CY8CKIT_064S0S2_4343W/aws_demos/application_code/main.c`. MQTT communication for the application is implemented in `demo/demos/coreMQTT/mqtt_demo_memfault.c`.  Integration overview:
+Demo overview:
 - First the user is asked whether a fault, trace or heartbeat event should be generated or the application should continue.
 - TCP connection to AWS IoT is estabilished.
 - `CONNECT` to MQTT broker is sent.
