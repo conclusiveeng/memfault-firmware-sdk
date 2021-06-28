@@ -387,22 +387,22 @@ void vApplicationDaemonTaskStartupHook( void )
     cyhal_flash_init(&flash_obj);
     cyhal_flash_get_info(&flash_obj, &flash_obj_info);
 
-    printf("Press \"1\" to simulate a fault and reboot,\n"
-    		"\"2\" to generate heartbeat and continue,\n"
-    		"\"3\" to generate a trace and continue,\n"
-    		"Anything else to just continue.\n"
-    		"(Confirm with enter)\n");
+    printf("Press \"1\" to simulate a fault and reboot\n"
+    		"\"2\" to generate heartbeat and continue\n"
+    		"\"3\" to generate a trace and continue\n"
+    		"Anything else to just continue\n"
+    		"Confirm with enter\n");
 
     char c = getchar();
 
     if (c == 0x31)
-    	memfault_test_fault();
+    	test_fault();
     else if (c == 0x32)
-    	memfault_test_heartbeat(0, NULL);
+    	test_heartbeat(0, NULL);
     else if (c == 0x33)
-    	memfault_test_trace(0, NULL);
+    	test_trace(0, NULL);
 
-    printf("Running the demo app.\n");
+    printf("Continuing with the demo app.\n");
 
     memfault_platform_boot();
 

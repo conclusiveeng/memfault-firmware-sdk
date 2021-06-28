@@ -52,6 +52,8 @@ static bool prv_try_flush(void) {
   sCoredumpWorkingBuffer *hdr_block = &s_working_buffer_header;
   sCoredumpWorkingBuffer *data_block = &s_working_buffer;
 
+//  printf("prv_try_flush\n");
+
   if (hdr_block->bytes_written == MEMFAULT_COREDUMP_STORAGE_WRITE_SIZE) {
     // this is the final write for the coredump (header)
 
@@ -133,7 +135,6 @@ bool memfault_platform_coredump_storage_erase(uint32_t offset, size_t erase_size
 	return true;
 }
 
-/* Based on buffered_coredump_storage.h */
 bool memfault_platform_coredump_storage_write(
 	uint32_t offset, const void *data, size_t data_len
 ){
@@ -146,7 +147,7 @@ bool memfault_platform_coredump_storage_write(
 	uint32_t page_aligned_start_address =
 		(start_addr / MEMFAULT_COREDUMP_STORAGE_WRITE_SIZE) * MEMFAULT_COREDUMP_STORAGE_WRITE_SIZE;
 
-	/* We have to copy data into a temporary buffer because we can only issue aligned writes. */
+	// we have to copy data into a temporary buffer because we can only issue aligned writes
 	if (page_aligned_start_address != start_addr) {
 		sCoredumpWorkingBuffer *working_buffer =
 			prv_get_working_buf(page_aligned_start_address);

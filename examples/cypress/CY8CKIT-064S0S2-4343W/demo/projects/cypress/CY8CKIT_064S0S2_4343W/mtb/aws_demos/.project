@@ -242,11 +242,6 @@
 			<locationURI>PARENT-5-PROJECT_LOC/vendors/cypress/lwip</locationURI>
 		</link>
 		<link>
-			<name>demos/dev_mode_key_provisioning/src/aws_dev_mode_key_provisioning.c</name>
-			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/demos/dev_mode_key_provisioning/src/aws_dev_mode_key_provisioning.c</locationURI>
-		</link>
-		<link>
 			<name>freertos_kernel/portable/GCC/ARM_CM4F</name>
 			<type>2</type>
 			<locationURI>PARENT-5-PROJECT_LOC/freertos_kernel/portable/GCC/ARM_CM4F</locationURI>

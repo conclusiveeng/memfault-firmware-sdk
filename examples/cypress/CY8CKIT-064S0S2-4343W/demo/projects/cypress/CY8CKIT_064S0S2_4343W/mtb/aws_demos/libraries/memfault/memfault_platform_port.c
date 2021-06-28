@@ -42,7 +42,7 @@ void memfault_platform_get_device_info(sMemfaultDeviceInfo *info) {
     // The version of the "software_type" currently running.
     // "software_type" + "software_version" must uniquely represent
     // a single binary
-    .software_version = "1.0.0",
+    .software_version = "1.0.2",
     // The revision of hardware for the device. This value must remain
     // the same for a unique device.
     // (i.e evt, dvt, pvt, or rev1, rev2, etc)
@@ -54,6 +54,7 @@ void memfault_platform_get_device_info(sMemfaultDeviceInfo *info) {
 //! Last function called after a coredump is saved. Should perform
 //! any final cleanup and then reset the device
 void memfault_platform_reboot(void) {
+
   NVIC_SystemReset();
   while (1) { } // unreachable
 }
@@ -81,6 +82,7 @@ size_t memfault_platform_sanitize_address_range(void *start_addr, size_t desired
   return 0;
 }
 
+
 void memfault_reboot_reason_get(sResetBootupInfo *info) {
   MEMFAULT_SDK_ASSERT(info != NULL);
 
@@ -103,16 +105,16 @@ void memfault_reboot_reason_get(sResetBootupInfo *info) {
 	  MEMFAULT_PRINT_RESET_INFO(" Software Reset");
 	  reset_reason = kMfltRebootReason_SoftwareReset;
   } else if (reset_cause & CY_SYSLIB_RESET_SWWDT0) {
-	  MEMFAULT_PRINT_RESET_INFO(" MCWDT0 Reset");
+	  MEMFAULT_PRINT_RESET_INFO(" MCWDT0 Timer Reset");
 	  reset_reason = kMfltRebootReason_HardwareWatchdog;
   } else if (reset_cause & CY_SYSLIB_RESET_SWWDT1) {
-	  MEMFAULT_PRINT_RESET_INFO(" MCWDT1 Reset");
+	  MEMFAULT_PRINT_RESET_INFO(" MCWDT1 Timer Reset");
 	  reset_reason = kMfltRebootReason_HardwareWatchdog;
   } else if (reset_cause & CY_SYSLIB_RESET_SWWDT2) {
-	  MEMFAULT_PRINT_RESET_INFO(" MCWDT2 Reset");
+	  MEMFAULT_PRINT_RESET_INFO(" MCWDT2 Timer Reset");
 	  reset_reason = kMfltRebootReason_HardwareWatchdog;
   } else if (reset_cause & CY_SYSLIB_RESET_SWWDT3) {
-	  MEMFAULT_PRINT_RESET_INFO(" MCWDT3 Reset");
+	  MEMFAULT_PRINT_RESET_INFO(" MCWDT3 Timer Reset");
 	  reset_reason = kMfltRebootReason_HardwareWatchdog;
   } else if (reset_cause & CY_SYSLIB_RESET_HIB_WAKEUP) {
 	  MEMFAULT_PRINT_RESET_INFO(" Hibernation Exit Reset");

@@ -2,8 +2,8 @@
 afr_demo_module(core_mqtt)
 
 # Set the default demo that is enabled in the downloaded package.
-afr_set_demo_metadata(ID "CORE_MQTT_MUTUAL_AUTH_DEMO")
-afr_set_demo_metadata(DESCRIPTION "Examples that demonstrate the MQTT library")
+afr_set_demo_metadata(ID "CORE_MQTT_MEMFAULT_DEMO")
+afr_set_demo_metadata(DESCRIPTION "Memfault integration demo")
 afr_set_demo_metadata(DISPLAY_NAME "coreMQTT Demos")
 
 # Add the CMakeLists.txt file of module to metadata list.
