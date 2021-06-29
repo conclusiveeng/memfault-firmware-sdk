@@ -66,8 +66,7 @@ extern void vLoggingPrint(const char * pcMessage);
 #define configPRINT(X)     vLoggingPrint(X)
 
 /* Assert call defined for debug builds. */
-extern void vAssertCalled(const char * pcFile,
-                           uint32_t ulLine);
+extern void vAssertCalled(const char * pcFile, int ulLine);
 #define configASSERT(x)    if((x) == 0) vAssertCalled(__FILE__, __LINE__)
 
 #endif /* __STDC__ || __cplusplus__ */

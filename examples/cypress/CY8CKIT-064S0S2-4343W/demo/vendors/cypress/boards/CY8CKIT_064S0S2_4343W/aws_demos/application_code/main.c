@@ -691,37 +691,6 @@ void vApplicationTickHook()
 /*-----------------------------------------------------------*/
 
 /**
- * @brief User defined assertion call. This function is plugged into configASSERT.
- * See FreeRTOSConfig.h to define configASSERT to something different.
- */
-void vAssertCalled(const char * pcFile,
-    uint32_t ulLine)
-{
-    const uint32_t ulLongSleep = 1000UL;
-    volatile uint32_t ulBlockVariable = 0UL;
-    volatile char * pcFileName = (volatile char *)pcFile;
-    volatile uint32_t ulLineNumber = ulLine;
-
-    (void)pcFileName;
-    (void)ulLineNumber;
-
-    configPRINTF( ("vAssertCalled %s, %ld\n", pcFile, (long)ulLine) );
-
-    /* Setting ulBlockVariable to a non-zero value in the debugger will allow
-    * this function to be exited. */
-    taskDISABLE_INTERRUPTS();
-    {
-    	MEMFAULT_ASSERT(0);
-        while (ulBlockVariable == 0UL)
-        {
-            vTaskDelay( pdMS_TO_TICKS( ulLongSleep ) );
-        }
-    }
-    taskENABLE_INTERRUPTS();
-}
-/*-----------------------------------------------------------*/
-
-/**
  * @brief User defined application hook need by the FreeRTOS-Plus-TCP library.
  */
 #if ( ipconfigUSE_LLMNR != 0 ) || ( ipconfigUSE_NBNS != 0 ) || ( ipconfigDHCP_REGISTER_HOSTNAME == 1 )

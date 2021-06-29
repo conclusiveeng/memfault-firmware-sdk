@@ -417,35 +417,5 @@ void runDemoTask( void * pArgument )
         }
     }
 
-/*-----------------------------------------------------------*/
-
-/**
- * @brief Loop forever if stack overflow is detected.
- *
- * If configCHECK_FOR_STACK_OVERFLOW is set to 1,
- * this hook provides a location for applications to
- * define a response to a stack overflow.
- *
- * Use this hook to help identify that a stack overflow
- * has occurred.
- *
- */
-    void vApplicationStackOverflowHook( TaskHandle_t xTask,
-                                        char * pcTaskName )
-    {
-        configPRINT_STRING( ( "ERROR: stack overflow\r\n" ) );
-        portDISABLE_INTERRUPTS();
-
-        /* Unused Parameters */
-        ( void ) xTask;
-        ( void ) pcTaskName;
-
-        MEMFAULT_ASSERT(0);
-
-        /* Loop forever */
-        for( ; ; )
-        {
-        }
-    }
 #endif /* iotconfigUSE_PORT_SPECIFIC_HOOKS */
 /*-----------------------------------------------------------*/

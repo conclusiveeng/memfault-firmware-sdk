@@ -33,6 +33,12 @@ CY_AFR_ROOT=../../../../..
 CY_BUILD_RELATIVE_LOCATION=$(CY_AFR_ROOT)/build/cy
 CY_BUILD_LOCATION=$(abspath $(CY_BUILD_RELATIVE_LOCATION))
 
+MEMFAULT_SDK_ROOT := /data/Development/memfault/memfault-firmware-sdk
+MEMFAULT_PORT_ROOT := /data/Development/memfault/memfault-firmware-sdk/ports/cypress/CY8CKIT-064S0S2-4343W
+
+MEMFAULT_COMPONENTS := core util panics metrics
+include $(MEMFAULT_SDK_ROOT)/makefiles/MemfaultWorker.mk
+
 ################################################################################
 # Basic Configuration
 ################################################################################
@@ -116,12 +122,24 @@ DISABLE_COMPONENTS=
 # tree for source code and builds it. The SOURCES variable can be used to
 # manually add source code to the build process from a location not searched
 # by default, or otherwise not found by the build system.
-SOURCES =
+SOURCES = \
+	$(MEMFAULT_COMPONENTS_SRCS) \
+	$(MEMFAULT_PORT_ROOT)/memfault_platform_storage.c \
+	$(MEMFAULT_PORT_ROOT)/memfault_platform_port.c \
+	$(MEMFAULT_PORT_ROOT)/memfault_test.c \
+	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_metrics_freertos.c \
+	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_core_freertos.c \
+	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_freertos_ram_regions.c \
+	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_panics_freertos.c
 
 # Like SOURCES, but for include directories. Value should be paths to
 # directories (without a leading -I).
 # TODO remove this once whd is update to new version
-INCLUDES = 
+INCLUDES = \
+	$(CY_AFR_ROOT)/vendors/cypress/MTB/libraries/wifi-host-driver/WiFi_Host_Driver/resources/nvram/TARGET_CY8CKIT_064B0S2_4343W \
+	$(MEMFAULT_COMPONENTS_INC_FOLDERS) \
+	$(MEMFAULT_SDK_ROOT)/ports/include \
+	$(MEMFAULT_PORT_ROOT)
 
 # Add additional defines to the build process (without a leading -D).
 DEFINES=
