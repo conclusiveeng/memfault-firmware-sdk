@@ -102,7 +102,7 @@ set(CMAKE_STATIC_LIBRARY_PREFIX "")
 
 # Initialize all modules.
 add_subdirectory("libraries")
-add_subdirectory("demos")
+add_subdirectory("mqtt_memfault_project/demo")
 add_subdirectory("tests")
 
 # Resolve dependencies.

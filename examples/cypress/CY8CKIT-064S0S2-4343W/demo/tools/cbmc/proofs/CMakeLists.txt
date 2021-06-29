@@ -14,7 +14,7 @@ list(APPEND cbmc_compile_definitions
 )
 
 list(APPEND cbmc_compile_includes
-    ${CMAKE_SOURCE_DIR}/demos/include
+    ${CMAKE_SOURCE_DIR}/demo/include
     ${CMAKE_SOURCE_DIR}/freertos_kernel/include
     ${CMAKE_SOURCE_DIR}/freertos_kernel/portable/MSVC-MingW
     ${CMAKE_SOURCE_DIR}/libraries/3rdparty/jsmn

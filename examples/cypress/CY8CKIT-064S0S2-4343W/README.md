@@ -12,7 +12,7 @@ The demo app is tested on a [CY8CKIT-064S0S2-4343W](https://www.cypress.com/docu
 - ModusToolbox setup instructions can be found [here](https://docs.aws.amazon.com/freertos/latest/userguide/getting_started_cypress_psoc64.html).
 - You'll need an AWS account with an IAM user. How to setup an IAM user can be found [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html).
 - The board, IAM user and AWS IoT should be configured according to this [document](https://docs.aws.amazon.com/freertos/latest/userguide/freertos-prereqs.html).
-- Import the application into your ModusToolbox workspace from the `demo/projects/cypress/CY8CKIT_064S0S2_4343W/mtb/aws_demos` directory.
+- Import the application into your ModusToolbox workspace from the `demo/mqtt_memfault_project` directory.
 
 ## Provisioning, certificates, keys & policies
 
@@ -41,7 +41,7 @@ Once that's out of the way, you'll find the demo function at `aws/forwardChunk.p
 
 ## Setting up the Memfault port
 
-Add contents of the snippet below to `demo/projects/cypress/CY8CKIT_064S0S2_4343W/mtb/aws_demos/Makefile`:
+Add contents of the snippet below to `mqtt_memfault_project/Makefile`:
 ```
 MEMFAULT_PORT_ROOT := <PORT ROOT>
 MEMFAULT_SDK_ROOT := <MEMFAULT SDK ROOT>
@@ -54,7 +54,7 @@ Where:
 - `<PORT ROOT>` should be replaced with the path for `ports/cypress/CY8CKIT-064S0S2-4343W`, which is the directory containing the board-specific port files in the `memfault-firmware-sdk` root directory.
 - `<MEMFAULT SDK ROOT>` should be replaced with the path to `memfault-firmware-sdk` root directory.
 
-Update `SOURCES` and `INCLUDES` variables in `demo/projects/cypress/CY8CKIT_064S0S2_4343W/mtb/aws_demos/Makefile` with:
+Update `SOURCES` and `INCLUDES` variables in `mqtt_memfault_project/Makefile` with:
 ```
 SOURCES = \
 	$(MEMFAULT_COMPONENTS_SRCS) \
@@ -87,7 +87,7 @@ You can use the gdbserver/client integrated into ModusToolbox to debug the appli
 
 ## Application details
 
-Main function is in `demo/vendors/cypress/boards/CY8CKIT_064S0S2_4343W/aws_demos/application_code/main.c`. MQTT communication for the application is implemented in `demo/demos/coreMQTT/mqtt_demo_memfault.c`. 
+Main function is in `vendors/cypress/boards/CY8CKIT_064S0S2_4343W/aws_demos/application_code/main.c`. MQTT communication for the application is implemented in `mqtt_memfault_project/demo/memfault/mqtt_demo_memfault.c`. 
 
 Demo overview:
 - First the user is asked whether a fault, trace or heartbeat event should be generated or the application should continue.
