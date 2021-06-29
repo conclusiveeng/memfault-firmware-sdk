@@ -32,8 +32,8 @@ CY_AFR_ROOT=..
 CY_BUILD_RELATIVE_LOCATION=$(CY_AFR_ROOT)/build/cy
 CY_BUILD_LOCATION=$(abspath $(CY_BUILD_RELATIVE_LOCATION))
 
-MEMFAULT_SDK_ROOT := /data/Development/memfault/memfault-firmware-sdk
-MEMFAULT_PORT_ROOT := /data/Development/memfault/memfault-firmware-sdk/ports/cypress/CY8CKIT-064S0S2-4343W
+MEMFAULT_SDK_ROOT := $(abspath ../../../../..)
+MEMFAULT_PORT_ROOT := $(MEMFAULT_SDK_ROOT)/ports/cypress/CY8CKIT-064S0S2-4343W
 
 MEMFAULT_COMPONENTS := core util panics metrics
 include $(MEMFAULT_SDK_ROOT)/makefiles/MemfaultWorker.mk
