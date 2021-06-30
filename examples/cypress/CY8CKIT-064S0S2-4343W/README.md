@@ -39,39 +39,7 @@ To setup Lambda, select `Create a new lambda function` -> `Author from scratch`.
 
 Once that's out of the way, you'll find the demo function at `aws/forwardChunk.py` which you have to paste into the editor. Make sure to replace `<INSERT KEY HERE>` with your Memfault Project Key, which you can find in your [Memfault dashboard](https://app.memfault.com), before using it.
 
-## Setting up the Memfault port
-
-Add contents of the snippet below to `mqtt_memfault_project/Makefile`:
-```
-MEMFAULT_PORT_ROOT := <PORT ROOT>
-MEMFAULT_SDK_ROOT := <MEMFAULT SDK ROOT>
-
-MEMFAULT_COMPONENTS := core util panics metrics
-include $(MEMFAULT_SDK_ROOT)/makefiles/MemfaultWorker.mk
-```
-
-Where: 
-- `<PORT ROOT>` should be replaced with the path for `ports/cypress/CY8CKIT-064S0S2-4343W`, which is the directory containing the board-specific port files in the `memfault-firmware-sdk` root directory.
-- `<MEMFAULT SDK ROOT>` should be replaced with the path to `memfault-firmware-sdk` root directory.
-
-Update `SOURCES` and `INCLUDES` variables in `mqtt_memfault_project/Makefile` with:
-```
-SOURCES = \
-	$(MEMFAULT_COMPONENTS_SRCS) \
-	$(MEMFAULT_PORT_ROOT)/memfault_platform_storage.c \
-	$(MEMFAULT_PORT_ROOT)/memfault_platform_port.c \
-	$(MEMFAULT_PORT_ROOT)/memfault_test.c \
-	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_metrics_freertos.c \
-	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_core_freertos.c \
-	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_freertos_ram_regions.c \
-	$(MEMFAULT_SDK_ROOT)/ports/freertos/src/memfault_panics_freertos.c
-
-INCLUDES = \
-	$(CY_AFR_ROOT)/vendors/cypress/MTB/libraries/wifi-host-driver/WiFi_Host_Driver/resources/nvram/TARGET_CY8CKIT_064B0S2_4343W \
-	$(MEMFAULT_COMPONENTS_INC_FOLDERS) \
-	$(MEMFAULT_SDK_ROOT)/ports/include \
-	$(MEMFAULT_PORT_ROOT)
-```
+## Memfault port
 
 Port stores coredumps, which include stack, data & bss sections, in flash memory between `__MfltCoredumpsStart` and `__MfltCoredumpsEnd` symbols. Demo implementation provides a 512-byte aligned 128kB region at the end of CM4 flash memory region, just behind the CM4 application signature.
 
