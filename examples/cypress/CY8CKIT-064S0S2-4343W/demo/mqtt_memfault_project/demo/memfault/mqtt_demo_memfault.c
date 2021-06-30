@@ -26,12 +26,12 @@
 
 /*
  * Demo for showing use of the MQTT API using a mutually authenticated
- * network connection.
+ * network connection to send Memfault chunks to the broker.
  *
  * The Example shown below uses MQTT APIs to create MQTT messages and send them
  * over the mutually authenticated network connection established with the
  * MQTT broker. This example is single threaded and uses statically allocated
- * memory. It uses QoS1 for sending to and receiving messages from the broker.
+ * memory. It uses QoS1 for sending messages to the broker.
  *
  * A mutually authenticated TLS connection is used to connect to the
  * MQTT message broker in this example. Define democonfigMQTT_BROKER_ENDPOINT
@@ -445,17 +445,7 @@ static MQTTFixedBuffer_t xBuffer =
  * @brief The example shown below uses MQTT APIs to create MQTT messages and
  * send them over the mutually authenticated network connection established with the
  * MQTT broker. This example is single threaded and uses statically allocated
- * memory. It uses QoS1 for sending to and receiving messages from the broker.
- *
- * This MQTT client subscribes to the topic as specified in mqttexampleTOPIC at the
- * top of this file by sending a subscribe packet and then waiting for a subscribe
- * acknowledgment (SUBACK).This client will then publish to the same topic it
- * subscribed to, so it will expect all the messages it sends to the broker to be
- * sent back to it from the broker.
- *
- * This example runs for democonfigMQTT_MAX_DEMO_COUNT, if the
- * connection to the broker goes down, the code tries to reconnect to the broker
- * with an exponential backoff mechanism.
+ * memory. It uses QoS1 for sending messages to the broker.
  */
 int RunCoreMqttMemfaultDemo(bool awsIotMqttMode,
                             const char * pIdentifier,
